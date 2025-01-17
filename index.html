@@ -36,9 +36,15 @@
         </style>
 
         <!-- Three.js includes -->
-        <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
-        <script async src="https://unpkg.com/three@0.151.3/build/three.module.js"></script>
-        <script async src="https://unpkg.com/three@0.151.3/examples/jsm/"></script>
+        <!--<script async src="https://unpkg.com/three@0.151.3/examples/jsm/"></script>-->
+        <script type="importmap">
+          {
+            "imports": {
+              "three": "https://cdn.jsdelivr.net/npm/three@0.151.3/build/three.module.js",
+              "three/addons/": "https://cdn.jsdelivr.net/npm/three@<version>/examples/jsm/"
+            }
+          }
+        </script>
     </head>
     <body>
         <!-- Interface canvas' -->

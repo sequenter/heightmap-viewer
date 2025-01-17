@@ -14,9 +14,9 @@ Dependencies:
 
 import * as THREE from "three";
 
-import { OrbitControls } from "../js/modules/OrbitControls.js";
-import { GUI } from "../js/modules/dat.gui.module.js";
-import { createNoise2D } from "../js/modules/simplex-noise.js";
+import { OrbitControls } from "./modules/OrbitControls.js";
+import { GUI } from "./modules/dat.gui.module.js";
+import { createNoise2D } from "./modules/simplex-noise.js";
 
 /* NormaliseBetween
 Obtains the minimum and maximum values within an array and returns a new array with its values rescaled between @min and @max
