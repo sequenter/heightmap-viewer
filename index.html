@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Boilerplate -->
+        <title>Heightmap Viewer</title>
+        <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+
+        <!-- Meta -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <meta name="description" content="Three.js Heightmap Viewer">
+
+        <!-- Styles -->
+        <style>
+            body { margin: 0; }
+
+            #gui {
+                position: absolute;
+                top: 286px;
+                right: 0px;
+            }
+
+            #heightmap {
+                position:absolute;
+                top: 15px;
+                right: 15px;
+                cursor: pointer;
+            }
+
+            #heightgrd {
+                position:absolute;
+                top: 15px;
+                right: 286px;
+                cursor: pointer;
+            }
+        </style>
+
+        <!-- Three.js includes -->
+        <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+        <script async src="https://unpkg.com/three@0.151.3/build/three.module.js"></script>
+        <script async src="https://unpkg.com/three@0.151.3/examples/jsm/"></script>
+    </head>
+    <body>
+        <!-- Interface canvas' -->
+        <canvas id="heightmap" width="256" height="256"></canvas>
+        <canvas id="heightgrd" width="32" height="256"></canvas>
+
+        <!-- Shaders -->
+        <script id="vertexShader" type="x-shader/x-vertex">
+            uniform sampler2D heightmap;
+            uniform float heightRatio;
+            varying float height;
+
+            void main() {
+                vec4 heightmapData = texture2D(heightmap, uv);
+
+                height = heightmapData.r;
+
+                vec3 pos = position;
+                pos.y = height * heightRatio;
+
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.);
+            }
+        </script>
+        <script id="fragmentShader" type="x-shader/x-fragment">
+            uniform sampler2D gradient;
+            varying float height;
+
+            void main() {
+                vec3 col = texture2D(gradient, vec2(0, height)).rgb;
+                gl_FragColor = vec4(col, 1.) ;
+            }
+        </script>
+
+        <!-- Scripts -->
+        <script src="/assets/alea.js"></script>
+        <script type="module" src="/assets/main.js"></script>
+    </body>
+</html>
